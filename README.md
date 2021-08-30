@@ -7,7 +7,7 @@ portsnap fetch extract update
 make -DBATCH -C /usr/ports/ports-mgmt/pkg reinstall clean
 
 # compilers:
-pkg install -y llvm cmake llvm10
+pkg install -y llvm cmake llvm10 go
 
 # database:
 make -DBATCH -C /usr/ports/databases/mariadb105-server install clean
@@ -28,3 +28,19 @@ make -DBATCH -C /usr/ports/net-mgmt/zabbix5-server install clean
 make -DBATCH -C /usr/ports/net-mgmt/zabbix5-frontend install clean
 
 # Grafana:
+
+# node14:
+make -DBATCH -C /usr/ports/www/node14 install clean
+
+# yarn:
+make -DBATCH -C /usr/ports/www/yarn-node14 install clean
+
+# PROJECT:
+cd
+git clone https://github.com/alexanderzobnin/grafana-zabbix.git
+cd grafana-zabbix
+go mod vendor
+env GOOS=freebsd GOARCH=amd64 go build -ldflags="-s -w" -mod=vendor -o ./dist/zabbix-plugin_freebsd_amd64 ./pkg
+# install:
+sudo install -c -g 904 -o 0 -m 0755 dist/zabbix-plugin_freebsd_amd64 \
+  /var/db/grafana/plugins/alexanderzobnin-zabbix-app
