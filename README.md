@@ -17,9 +17,11 @@ make -DBATCH -C /usr/ports/www/apache24 install clean
 
 # Configure some ports:
 make -C /usr/ports/lang/php74-extensions config
-  SELECT: CURL IMAP GD JSON LIBXML2 MBSTRING MYSQLI OPENSSL PDF PDO PDO_MYSQL SOAP ZLIB
+
+SELECT: CURL IMAP GD JSON LIBXML2 MBSTRING MYSQLI OPENSSL PDF PDO PDO_MYSQL SOAP ZLIB
+
 make -C /usr/ports/net-mgmt/zabbix5-server config
-  SELECT: LIBXML2
+SELECT: LIBXML2
 
 # zabbix:
 make -DBATCH -C /usr/ports/net-mgmt/zabbix5-server install clean
