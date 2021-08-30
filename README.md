@@ -40,10 +40,15 @@ make -DBATCH -C /usr/ports/www/yarn-node14 install clean
 
 # PROJECT:
 cd
+
 git clone https://github.com/alexanderzobnin/grafana-zabbix.git
+
 cd grafana-zabbix
+
 go mod vendor
+
 env GOOS=freebsd GOARCH=amd64 go build -ldflags="-s -w" -mod=vendor -o ./dist/zabbix-plugin_freebsd_amd64 ./pkg
+
 # install:
-sudo install -c -g 904 -o 0 -m 0755 dist/zabbix-plugin_freebsd_amd64 \
+sudo install -c -g 904 -o 0 -m 0755 dist/zabbix-plugin_freebsd_amd64 \\
   /var/db/grafana/plugins/alexanderzobnin-zabbix-app
